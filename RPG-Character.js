@@ -5,17 +5,18 @@
 import { LitElement, html, css } from "lit";
 import { DDDSuper } from "@haxtheweb/d-d-d/d-d-d.js";
 import { I18NMixin } from "@haxtheweb/i18n-manager/lib/I18NMixin.js";
+import '@haxtheweb/rpg-character/rpg-character.js';
 
 /**
  * `RPG-Character`
  * 
  * @demo index.html
- * @element RPG-Character
+ * @element rpg-character
  */
-export class RPG-Character extends DDDSuper(I18NMixin(LitElement)) {
+export class RPGCharacter extends DDDSuper(I18NMixin(LitElement)) {
 
   static get tag() {
-    return "RPG-Character";
+    return "rpg-character";
   }
 
   constructor() {
@@ -69,6 +70,19 @@ export class RPG-Character extends DDDSuper(I18NMixin(LitElement)) {
 <div class="wrapper">
   <h3><span>${this.t.title}:</span> ${this.title}</h3>
   <slot></slot>
+  <rpg-character seed="btopro"></rpg-character>
+<rpg-character seed="${item.login}"></rpg-character>
+<div>${item.login}</div>
+<div>${item.contributions}</div>
+<rpg-character seed="anothername"></rpg-character>
+<rpg-character seed="yertasd298fu28j82"></rpg-character>
+<rpg-character seed="uniquekhjgffty7y76t"></rpg-character>
+<rpg-character seed="885322"></rpg-character>
+<rpg-character seed="yertasd298fu28j82" hat="construction"></rpg-character>
+
+<script type="module" src="https://cdn.hax.cloud/cdn/build/es6/node_modules/@haxtheweb/rpg-character/rpg-character.js"></script>
+
+https://lit.dev/docs/templates/lists/
 </div>`;
   }
 
@@ -80,5 +94,20 @@ export class RPG-Character extends DDDSuper(I18NMixin(LitElement)) {
       .href;
   }
 }
+async function getData() {
+  const url = "https://api.github.com/repos/haxtheweb/webcomponents/contributors";
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+
+    const json = await response.json();
+    console.log(json);
+  } catch (error) {
+    console.error(error.message);
+  }
+}
+
 
 globalThis.customElements.define(RPG-Character.tag, RPG-Character);
